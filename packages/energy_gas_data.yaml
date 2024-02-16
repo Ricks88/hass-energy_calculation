@@ -1,1 +1,986 @@
+---
+#
+# /config/integrations/custom_packages/energy_gas/energy_gas_data.yaml
+#
 
+##################################################################################################################
+# Inputs
+##################################################################################################################
+
+# Inputs for the Energy and Gas Prices
+
+input_number:
+
+  # Input number: Energy and Gas Prices
+  # These are the current Energy and Gas prices for the Energy Meter and HA Energy Dashboard.
+
+  # All-in enkeltarief Stroom Euro per kWh
+  energy_all_in_enkeltarief_stroom:
+    name: "Energie Tarief - All-in Enkeltarief Stroom"
+    initial: 0.374
+    min: 0.000
+    max: 0.900
+    step: 0.001
+    unit_of_measurement: "EUR/kWh"
+    icon: mdi:flash
+    mode: box
+
+  # All-in enkeltarief Gas Euro per m3
+  energy_all_in_enkeltarief_gas:
+    name: "Energie Tarief - All-in Enkeltarief Gas"
+    initial: 1.267
+    min: 0.000
+    max: 4.000
+    step: 0.001
+    unit_of_measurement: "EUR/m³"
+    icon: mdi:fire
+    mode: box
+
+  # Netbeheerkosten Stroom per JAAR
+  energy_netbeheerkosten_stroom:
+    name: "Energie Tarief - Netbeheerkosten Stroom"
+    initial: 325.89
+    min: 0.00
+    max: 500.00
+    step: 0.01
+    unit_of_measurement: "EUR"
+    icon: mdi:flash
+    mode: box
+
+  # Netbeheerkosten Gas per JAAR
+  energy_netbeheerkosten_gas:
+    name: "Energie Tarief - Netbeheerkosten Gas"
+    initial: 203.55
+    min: 0.00
+    max: 500.00
+    step: 0.01
+    unit_of_measurement: "EUR"
+    icon: mdi:fire
+    mode: box
+
+  # Vaste Leveringskosten Stroom per JAAR
+  energy_vaste_leveringskosten_stroom:
+    name: "Energie Tarief - Vaste Leveringskosten Stroom"
+    initial: 85.23
+    min: 0.00
+    max: 100.00
+    step: 0.01
+    unit_of_measurement: "EUR"
+    icon: mdi:flash
+    mode: box
+
+  # Vaste Leveringskosten Gas per JAAR
+  energy_vaste_leveringskosten_gas:
+    name: "Energie Tarief - Vaste Leveringskosten Gas"
+    initial: 85.23
+    min: 0.00
+    max: 100.00
+    step: 0.01
+    unit_of_measurement: "EUR"
+    icon: mdi:fire
+    mode: box
+
+  # Vermindering Energiebelasting Stroom per JAAR
+  energy_vermindering_energiebelasting_stroom:
+    name: "Energie Tarief - Vermindering Energiebelasting Stroom"
+    initial: -595.22
+    min: -900.00
+    max: 0.00
+    step: 0.01
+    unit_of_measurement: "EUR"
+    icon: mdi:flash
+    mode: box
+
+  # All-in dubbeltarief daltarief (tarief 1) Stroom Euro per kWh (HA Energy Dashboard)
+  ha_energy_all_in_dubbeltarief_dal_stroom:
+    name: "Energie Tarief HA - All-in Dubbeltarief Dal Stroom"
+    initial: 0.367465
+    min: 0.000000
+    max: 0.900000
+    step: 0.000001
+    unit_of_measurement: "EUR/kWh"
+    icon: mdi:flash
+    mode: box
+
+  # All-in dubbeltarief (normaal)piektarief (tarief 2) Stroom Euro per kWh (HA Energy Dashboard)
+  ha_energy_all_in_dubbeltarief_piek_stroom:
+    name: "Energie Tarief HA - All-in Dubbeltarief Piek Stroom"
+    initial: 0.380049
+    min: 0.000000
+    max: 0.900000
+    step: 0.000001
+    unit_of_measurement: "EUR/kWh"
+    icon: mdi:flash
+    mode: box
+
+  # All-in Teruglevering enkeltarief Stroom Euro per kWh (HA Energy Dashboard)
+  ha_energy_teruglevering_all_in_enkeltarief_stroom:
+    name: "Energie Tarief HA - Teruglevering All-in Enkeltarief Stroom"
+    initial: 0.070000
+    min: 0.000000
+    max: 0.900000
+    step: 0.000001
+    unit_of_measurement: "EUR/kWh"
+    icon: mdi:solar-power
+    mode: box
+
+  # All-in enkeltarief Gas Euro per m3 (HA Energy Dashboard)
+  ha_energy_all_in_enkeltarief_gas:
+    name: "Energie Tarief HA - All-in Enkeltarief Gas"
+    initial: 1.268927
+    min: 0.000000
+    max: 4.000000
+    step: 0.000001
+    unit_of_measurement: "EUR/m³"
+    icon: mdi:fire
+    mode: box
+
+
+##################################################################################################################
+# Utility Meter
+##################################################################################################################
+
+utility_meter:
+
+  ###### DSMR METER READINGS ######
+
+  # Hourly
+  hourly_energy_offpeak:
+    name: "Hourly Energy Offpeak"
+    source: sensor.electricity_meter_energieverbruik_tarief_1
+    cycle: hourly
+  hourly_energy_peak:
+    name: "Hourly Energy Peak"
+    source: sensor.electricity_meter_energieverbruik_tarief_2
+    cycle: hourly
+  # Return
+  hourly_energy_returned_offpeak:
+    name: "Hourly Energy Returned Offpeak"
+    source: sensor.electricity_meter_energieproductie_tarief_1
+    cycle: hourly
+  hourly_energy_returned_peak:
+    name: "Hourly Energy Returned Peak"
+    source: sensor.electricity_meter_energieproductie_tarief_2
+    cycle: hourly
+  # Gas
+  hourly_gas:
+    name: "Hourly Gas"
+    source: sensor.gas_meter_gasverbruik
+    cycle: hourly
+
+  # Daily
+  daily_energy_offpeak:
+    name: "Daily Energy Offpeak"
+    source: sensor.electricity_meter_energieverbruik_tarief_1
+    cycle: daily
+  daily_energy_peak:
+    name: "Daily Energy Peak"
+    source: sensor.electricity_meter_energieverbruik_tarief_2
+    cycle: daily
+  # Return
+  daily_energy_returned_offpeak:
+    name: "Daily Energy Returned Offpeak"
+    source: sensor.electricity_meter_energieproductie_tarief_1
+    cycle: daily
+  daily_energy_returned_peak:
+    name: "Daily Energy Returned Peak"
+    source: sensor.electricity_meter_energieproductie_tarief_2
+    cycle: daily
+  # Gas
+  daily_gas:
+    name: "Daily Gas"
+    source: sensor.gas_meter_gasverbruik
+    cycle: daily
+
+  # Weekly
+  weekly_energy_offpeak:
+    name: "Weekly Energy Offpeak"
+    source: sensor.electricity_meter_energieverbruik_tarief_1
+    cycle: weekly
+  weekly_energy_peak:
+    name: "Weekly Energy Peak"
+    source: sensor.electricity_meter_energieverbruik_tarief_2
+    cycle: weekly
+  # Return
+  weekly_energy_returned_offpeak:
+    name: "Weekly Energy Returned Offpeak"
+    source: sensor.electricity_meter_energieproductie_tarief_1
+    cycle: weekly
+  weekly_energy_returned_peak:
+    name: "Weekly Energy Returned Peak"
+    source: sensor.electricity_meter_energieproductie_tarief_2
+    cycle: weekly
+  # Gas
+  weekly_gas:
+    name: "Weekly Gas"
+    source: sensor.gas_meter_gasverbruik
+    cycle: weekly
+
+  # Monthly
+  monthly_energy_offpeak:
+    name: "Monthly Energy Offpeak"
+    source: sensor.electricity_meter_energieverbruik_tarief_1
+    cycle: monthly
+  monthly_energy_peak:
+    name: "Monthly Energy Peak"
+    source: sensor.electricity_meter_energieverbruik_tarief_2
+    cycle: monthly
+  # Return
+  monthly_energy_returned_offpeak:
+    name: "Monthly Energy Returned Offpeak"
+    source: sensor.electricity_meter_energieproductie_tarief_1
+    cycle: monthly
+  monthly_energy_returned_peak:
+    name: "Monthly Energy Returned Peak"
+    source: sensor.electricity_meter_energieproductie_tarief_2
+    cycle: monthly
+  # Gas
+  monthly_gas:
+    name: "Monthly Gas"
+    source: sensor.gas_meter_gasverbruik
+    cycle: monthly
+
+  # Yearly
+  yearly_energy_offpeak:
+    name: "Yearly Energy Offpeak"
+    source: sensor.electricity_meter_energieverbruik_tarief_1
+    cycle: yearly
+  yearly_energy_peak:
+    name: "Yearly Energy Peak"
+    source: sensor.electricity_meter_energieverbruik_tarief_2
+    cycle: yearly
+  # Return
+  yearly_energy_returned_offpeak:
+    name: "Yearly Energy Returned Offpeak"
+    source: sensor.electricity_meter_energieproductie_tarief_1
+    cycle: yearly
+  yearly_energy_returned_peak:
+    name: "Yearly Energy Returned Peak"
+    source: sensor.electricity_meter_energieproductie_tarief_2
+    cycle: yearly
+  # Gas
+  yearly_gas:
+    name: "Yearly Gas"
+    source: sensor.gas_meter_gasverbruik
+    cycle: yearly
+
+
+
+##################################################################################################################
+# Template Sensor
+##################################################################################################################
+
+template:
+
+  # Energie DSMR Readings and Prices
+
+  - sensor:
+  
+  # CALCULATION TARIF LOW + NORMAL
+
+  # Hourly Energy
+      - name: "Hourly Energy"
+        unique_id: "hourly_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.hourly_energy_offpeak')|float + states('sensor.hourly_energy_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.hourly_energy_offpeak') and has_value('sensor.hourly_energy_peak') }}"
+      
+  # Return
+      - name: "Hourly Energy Returned"
+        unique_id: "hourly_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.hourly_energy_returned_offpeak')|float + states('sensor.hourly_energy_returned_peak')|float ) | round(1) }}"
+        availability: "{{ states('sensor.hourly_energy_returned_offpeak')|is_number and states('sensor.hourly_energy_returned_peak')|is_number }}"
+
+  # Daily Energy
+      - name: "Daily Energy"
+        unique_id: "daily_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.daily_energy_offpeak')|float + states('sensor.daily_energy_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.daily_energy_offpeak') and has_value('sensor.daily_energy_peak') }}"
+  # Return
+      - name: "Daily Energy Returned"
+        unique_id: "daily_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.daily_energy_returned_offpeak')|float + states('sensor.daily_energy_returned_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.daily_energy_returned_offpeak') and has_value('sensor.daily_energy_returned_peak') }}"
+
+  # Weekly Energy
+      - name: "Weekly Energy"
+        unique_id: "weekly_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.weekly_energy_offpeak')|float + states('sensor.weekly_energy_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.weekly_energy_offpeak') and has_value('sensor.weekly_energy_peak') }}"
+  # Return
+      - name: "Weekly Energy Returned"
+        unique_id: "weekly_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.weekly_energy_returned_offpeak')|float + states('sensor.weekly_energy_returned_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.weekly_energy_returned_offpeak') and has_value('sensor.weekly_energy_returned_peak') }}"
+
+  # Monthly Energy
+      - name: "Monthly Energy"
+        unique_id: "monthly_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.monthly_energy_offpeak')|float + states('sensor.monthly_energy_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.monthly_energy_offpeak') and has_value('sensor.monthly_energy_peak') }}"
+  # Return
+      - name: "Monthly Energy Returned"
+        unique_id: "monthly_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.monthly_energy_returned_offpeak')|float + states('sensor.monthly_energy_returned_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.monthly_energy_returned_offpeak') and has_value('sensor.monthly_energy_returned_peak') }}"
+
+  # Yearly Energy
+      - name: "Yearly Energy"
+        unique_id: "yearly_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.yearly_energy_offpeak')|float + states('sensor.yearly_energy_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.yearly_energy_offpeak') and has_value('sensor.yearly_energy_peak') }}"
+  # Return
+      - name: "Yearly Energy Returned"
+        unique_id: "yearly_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+        state: "{{ ( states('sensor.yearly_energy_returned_offpeak')|float + states('sensor.yearly_energy_returned_peak')|float ) | round(1) }}"
+        availability: "{{ has_value('sensor.yearly_energy_returned_offpeak') and has_value('sensor.yearly_energy_returned_peak') }}"
+
+
+  ## LAST PERIODS ENERGY ##
+
+  # Yesterday Energy
+      - name: "Yesterday Energy"
+        unique_id: "yesterday_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.daily_energy_offpeak','last_period')|float + state_attr('sensor.daily_energy_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.daily_energy_offpeak','last_period')|is_number and state_attr('sensor.daily_energy_peak','last_period')|is_number }}"
+  # Return
+      - name: "Yesterday Energy Returned"
+        unique_id: "yesterday_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.daily_energy_returned_offpeak','last_period')|float + state_attr('sensor.daily_energy_returned_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.daily_energy_returned_offpeak','last_period')|is_number and state_attr('sensor.daily_energy_returned_peak','last_period')|is_number }}"
+
+  # Last Week Energy
+      - name: "Last Week Energy"
+        unique_id: "last_week_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.weekly_energy_offpeak','last_period')|float + state_attr('sensor.weekly_energy_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.weekly_energy_offpeak','last_period')|is_number and state_attr('sensor.weekly_energy_peak','last_period')|is_number }}"
+  # Return
+      - name: "Last Week Energy Returned"
+        unique_id: "last_week_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.weekly_energy_returned_offpeak','last_period')|float + state_attr('sensor.weekly_energy_returned_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.weekly_energy_returned_offpeak','last_period')|is_number and state_attr('sensor.weekly_energy_returned_peak','last_period')|is_number }}"
+
+  # Last Month Energy
+      - name: "Last Month Energy"
+        unique_id: "last_month_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.monthly_energy_offpeak','last_period')|float + state_attr('sensor.monthly_energy_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.monthly_energy_offpeak','last_period')|is_number and state_attr('sensor.monthly_energy_peak','last_period')|is_number }}"
+  # Return
+      - name: "Last Month Energy Returned"
+        unique_id: "last_month_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.monthly_energy_returned_offpeak','last_period')|float + state_attr('sensor.monthly_energy_returned_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.monthly_energy_returned_offpeak','last_period')|is_number and state_attr('sensor.monthly_energy_returned_peak','last_period')|is_number }}"
+
+  # Last Year Energy
+      - name: "Last Year Energy"
+        unique_id: "last_year_energy"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.yearly_energy_offpeak','last_period')|float + state_attr('sensor.yearly_energy_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.yearly_energy_offpeak','last_period')|is_number and state_attr('sensor.yearly_energy_peak','last_period')|is_number }}"
+  # Return
+      - name: "Last Year Energy Returned"
+        unique_id: "last_year_energy_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: "{{ ( state_attr('sensor.yearly_energy_returned_offpeak','last_period')|float + state_attr('sensor.yearly_energy_returned_peak','last_period')|float ) | round(1) }}"
+        availability: "{{ state_attr('sensor.yearly_energy_returned_offpeak','last_period')|is_number and state_attr('sensor.yearly_energy_returned_peak','last_period')|is_number }}"
+
+
+  ## LAST PERIODS GAS ##
+
+  # Yesterday Gas
+      - name: "Yesterday Gas"
+        unique_id: "yesterday_gas"
+        unit_of_measurement: "m³"
+        device_class: gas
+        state_class: total
+        state: "{{ state_attr('sensor.daily_gas','last_period')|float | round(2) }}"
+        availability: "{{ state_attr('sensor.daily_gas','last_period') | is_number }}"
+  # Last Week Gas
+      - name: "Last Week Gas"
+        unique_id: "last_week_gas"
+        unit_of_measurement: "m³"
+        device_class: gas
+        state_class: total
+        state: "{{ state_attr('sensor.weekly_gas','last_period')|float | round(2) }}"
+        availability: "{{ state_attr('sensor.weekly_gas','last_period') | is_number }}"
+  # Last Month Gas
+      - name: "Last Month Gas"
+        unique_id: "last_month_gas"
+        unit_of_measurement: "m³"
+        device_class: gas
+        state_class: total
+        state: "{{ state_attr('sensor.monthly_gas','last_period')|float | round(2) }}"
+        availability: "{{ state_attr('sensor.monthly_gas','last_period') | is_number }}"
+  # Last Year Gas
+      - name: "Last Year Gas"
+        unique_id: "last_year_gas"
+        unit_of_measurement: "m³"
+        device_class: gas
+        state_class: total
+        state: "{{ state_attr('sensor.yearly_gas','last_period')|float | round(2) }}"
+        availability: "{{ state_attr('sensor.yearly_gas','last_period') | is_number }}"
+
+
+
+  ## SHORT ENERGY ##
+
+  # Daily Energy Short
+##      - name: "Daily Energy Short"
+##        unique_id: "daily_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.daily_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.daily_energy') }}"
+  # Return
+##      - name: "Daily Energy Returned Short"
+##        unique_id: "daily_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.daily_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.daily_energy_returned') }}"
+  # Yesterdag Energy Short
+##      - name: "Yesterday Energy Short"
+##        unique_id: "yesterday_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.yesterday_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.yesterday_energy') }}"
+  # Return
+##      - name: "Yesterday Energy Returned Short"
+##        unique_id: "yesterday_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.yesterday_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.yesterday_energy_returned') }}"
+##
+  # Weekly Energy Short
+##      - name: "Weekly Energy Short"
+##        unique_id: "weekly_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.weekly_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.weekly_energy') }}"
+  # Return
+##      - name: "Weekly Energy Returned Short"
+##        unique_id: "weekly_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.weekly_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.weekly_energy_returned') }}"
+  # Last Week Energy Short
+##      - name: "Last Week Energy Short"
+##        unique_id: "last_week_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_week_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_week_energy') }}"
+  # Return
+##      - name: "Last Week Energy Returned Short"
+##        unique_id: "last_week_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_week_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_week_energy_returned') }}"
+##
+  # Monthly Energy Short
+##      - name: "Monthly Energy Short"
+##        unique_id: "monthly_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.monthly_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.monthly_energy') }}"
+  # Return
+##      - name: "Monthly Energy Returned Short"
+##        unique_id: "monthly_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.monthly_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.monthly_energy_returned') }}"
+  # Last Month Energy Short
+##      - name: "Last Month Energy Short"
+##        unique_id: "last_month_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_month_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_month_energy') }}"
+  # Return
+##      - name: "Last Month Energy Returned Short"
+##        unique_id: "last_month_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_month_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_month_energy_returned') }}"
+##
+  # Yearly Energy Short
+##      - name: "Yearly Energy Short"
+##        unique_id: "yearly_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.yearly_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.yearly_energy') }}"
+  # Return
+##      - name: "Yearly Energy Returned Short"
+##        unique_id: "yearly_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.yearly_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.yearly_energy_returned') }}"
+  # Last Year Energy Short
+##      - name: "Last Year Energy Short"
+##        unique_id: "last_year_energy_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_year_energy') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_year_energy') }}"
+  # Return
+##      - name: "Last Year Energy Returned Short"
+##        unique_id: "last_year_energy_returned_short"
+##        unit_of_measurement: "kWh"
+##        device_class: energy
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.last_year_energy_returned') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_year_energy_returned') }}"
+
+
+## SHORT GAS ##
+
+  # Daily Gas Short
+##      - name: "Daily Gas Short"
+##        unique_id: "daily_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.daily_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.daily_gas')}}"
+  # Yesterday Gas Short
+##      - name: "Yesterday Gas Short"
+##        unique_id: "yesterday_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.yesterday_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.yesterday_gas')}}"
+##
+  # Weekly Gas Short
+##      - name: "Weekly Gas Short"
+##        unique_id: "weekly_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.weekly_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.weekly_gas')}}"
+  # Last Week Gas Short
+##      - name: "Last Week Gas Short"
+##        unique_id: "last_week_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_week_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_week_gas')}}"
+##
+  # Monthly Gas Short
+##      - name: "Monthly Gas Short"
+##        unique_id: "monthly_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.monthly_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.monthly_gas')}}"
+  # Last Month Gas Short
+##      - name: "Last Month Gas Short"
+##        unique_id: "last_month_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_month_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_month_gas')}}"
+##
+  # Yearly Gas Short
+##      - name: "Yearly Gas Short"
+##        unique_id: "yearly_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total_increasing
+##        state: "{{ '%.1f'%(states('sensor.yearly_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.yearly_gas')}}"
+  # Last Year Gas Short
+##      - name: "Last Year Gas Short"
+##        unique_id: "last_year_gas_short"
+##        unit_of_measurement: "m³"
+##        device_class: gas
+##        state_class: total
+##        state: "{{ '%.1f'%(states('sensor.last_year_gas') | float) | float }}"
+##        availability: "{{ has_value('sensor.last_year_gas')}}"
+##
+
+
+  ## Gemiddelde over een maand ##
+
+  # Gemiddeld Energy Day      
+      - name: "Average Energy Day"
+        unique_id: "average_energy_day"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_month_energy') | float %}
+          {{ (a / 30.41) | round(1) }}
+        availability: "{{ has_value('sensor.last_month_energy') }}"
+  # Gemiddeld Energy Return Day
+      - name: "Average Energy Day Returned"
+        unique_id: "average_energy_day_returned"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_month_energy_returned') | float %}
+          {{ (a / 30.41) | round(1) }}
+        availability: "{{ has_value('sensor.last_month_energy_returned') }}"
+
+  # Gemiddeld Gas Day
+      - name: "Average Gas Day"
+        unique_id: "average_gas_day"
+        unit_of_measurement: "m³"
+        device_class: gas
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_month_gas') | float %}
+          {{ (a / 30.41) | round(1) }}
+        availability: "{{ has_value('sensor.last_month_gas') }}"
+
+
+
+  ## CACULATIONS - kWh to Watt ##
+
+  # Current Energy kWh to Watts
+      - name: "Electricity Meter Energieverbruik (W)"
+        unique_id: "electricity_meter_energieverbruik_w"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+        state: "{{ ( states('sensor.electricity_meter_energieverbruik') | float(0) * 1000 ) | round(0) }}"
+        availability: "{{ has_value('sensor.electricity_meter_energieverbruik') }}"
+
+
+
+## Kosten gabaseerd op Levercancier Prijzen ##
+
+  ## Energie ##
+
+  # Vandaag Energie Kosten
+      - name: "Today Energy Price"
+        unique_id: "today_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.daily_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 365 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 365 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 365 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.daily_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Gisteren Energie Kosten
+      - name: "Yesterday Energy Price"
+        unique_id: "yesterday_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.yesterday_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 365 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 365 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 365 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.yesterday_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Deze Week Energie Kosten
+      - name: "Week Energy Price"
+        unique_id: "week_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.weekly_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 52 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 52 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 52 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.weekly_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Vorige Week Energie Kosten
+      - name: "Last Week Energy Price"
+        unique_id: "last_week_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_week_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 52 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 52 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 52 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.last_week_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Deze Maand Energie Kosten
+      - name: "Month Energy Price"
+        unique_id: "month_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.monthly_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 12 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 12 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 12 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.monthly_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Vorige Maand Energie Kosten
+      - name: "Last Month Energy Price"
+        unique_id: "last_month_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_month_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float / 12 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float / 12 %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float / 12 %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.last_month_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Dit Jaar Energie Kosten
+      - name: "Year Energy Price"
+        unique_id: "year_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.yearly_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.yearly_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+  # Vorig Jaar Energie Kosten
+      - name: "Last Year Energy Price"
+        unique_id: "last_year_energy_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_year_energy') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_stroom') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_stroom') | float %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_stroom') | float %}
+          {% set e = states('input_number.energy_vermindering_energiebelasting_stroom') | float %}
+          {{ ((((a * b) + c) + d) + e) | round(2) }}
+        availability: "{{ has_value('sensor.last_year_energy') and has_value('input_number.energy_all_in_enkeltarief_stroom') and has_value('input_number.energy_netbeheerkosten_stroom') and 
+        has_value('input_number.energy_vaste_leveringskosten_stroom') and has_value('input_number.energy_vermindering_energiebelasting_stroom') }}"
+
+
+  ## Gas ##
+
+  # Vandaag Gas Kosten
+      - name: "Today Gas Price"
+        unique_id: "today_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.daily_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 365 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 365 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.daily_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Gisteren Gas Kosten
+      - name: "Yesterday Gas Price"
+        unique_id: "yesterday_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.yesterday_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 365 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 365 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.yesterday_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Deze Week Gas Kosten
+      - name: "Week Gas Price"
+        unique_id: "week_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.weekly_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 52 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 52 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.weekly_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Vorige Week Gas Kosten
+      - name: "Last Week Gas Price"
+        unique_id: "last_week_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_week_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 52 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 52 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.last_week_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+  
+  
+  # Deze Maand Gas Kosten
+      - name: "Month Gas Price"
+        unique_id: "month_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.monthly_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 12 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 12 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.monthly_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Vorige Maand Gas Kosten
+      - name: "Last Month Gas Price"
+        unique_id: "last_month_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_month_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float / 12 %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float / 12 %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.last_month_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Dit Jaar Gas Kosten
+      - name: "Year Gas Price"
+        unique_id: "year_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.yearly_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float %}
+           {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.yearly_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
+
+  # Vorig Jaar Gas Kosten
+      - name: "Last Year Gas Price"
+        unique_id: "last_year_gas_price"
+        unit_of_measurement: "EUR"
+        device_class: monetary
+        state_class: total
+        state: >
+          {% set a = states('sensor.last_year_gas') | float %}
+          {% set b = states('input_number.energy_all_in_enkeltarief_gas') | float %}
+          {% set c = states('input_number.energy_netbeheerkosten_gas') | float %}
+          {% set d = states('input_number.energy_vaste_leveringskosten_gas') | float %}
+          {{ (((a * b) + c) + d) | round(2) }}
+        availability: "{{ has_value('sensor.last_year_gas') and has_value('input_number.energy_all_in_enkeltarief_gas') and has_value('input_number.energy_netbeheerkosten_gas') and 
+        has_value('input_number.energy_vaste_leveringskosten_gas') }}"
